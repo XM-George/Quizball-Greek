@@ -28,6 +28,7 @@ public class AppWindow {
         main.setResizable(false);
         main.setLayout(null);
         main.setIconImage(Toolkit.getDefaultToolkit().getImage(iconPath));
+        main.setTitle("Quizball");
 
         setMenuBar();
 
@@ -254,8 +255,10 @@ public class AppWindow {
 
         if (use.equals("Q")) {
             field.setText(Question.questions[currentQuestion].question);
+            dialog.setTitle("Question");
         } else if (use.equals("A")) {
             field.setText(Question.questions[currentQuestion].answer);
+            dialog.setTitle("Answer");
         }
 
         JButton showNext = getShowNextButton(use, dialog);
