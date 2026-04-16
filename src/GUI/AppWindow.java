@@ -251,6 +251,8 @@ public class AppWindow {
         field.setBounds(50, 50, 500, 200);
         field.setEditable(false);
         field.setFocusable(false);
+        field.setLineWrap(true);
+        field.setWrapStyleWord(true);
         field.setFont(f);
 
         if (use.equals("Q")) {
