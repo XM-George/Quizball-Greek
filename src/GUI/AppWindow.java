@@ -244,14 +244,14 @@ public class AppWindow {
     }
 
     public void showQuestionAnswerDialog(String use) {
-        JDialog dialog = new JDialog();
-        dialog.setSize(600, 400);
-        dialog.setLayout(null);
-        dialog.setLocationRelativeTo(null);
-        dialog.setResizable(false);
-        dialog.setIconImage(Toolkit.getDefaultToolkit().getImage(iconPath));
+        JFrame questionAnswerFrame = new JFrame();
+        questionAnswerFrame.setSize(600, 400);
+        questionAnswerFrame.setLayout(null);
+        questionAnswerFrame.setLocationRelativeTo(null);
+        questionAnswerFrame.setResizable(false);
+        questionAnswerFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(iconPath));
 
-        dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        questionAnswerFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JTextArea field = new JTextArea();
         field.setBounds(50, 50, 500, 200);
@@ -263,21 +263,21 @@ public class AppWindow {
 
         if (use.equals("Q")) {
             field.setText(Question.questions.get(currentQuestion).question);
-            dialog.setTitle("Question");
+            questionAnswerFrame.setTitle("Question");
         } else if (use.equals("A")) {
             field.setText(Question.questions.get(currentQuestion).question + "\n\n" + Question.questions.get(currentQuestion).answer);
-            dialog.setTitle("Answer");
+            questionAnswerFrame.setTitle("Answer");
         }
 
-        JButton showNext = getShowNextButton(use, dialog);
+        JButton showNext = getShowNextButton(use, questionAnswerFrame);
 
-        dialog.add(field);
-        dialog.add(showNext);
+        questionAnswerFrame.add(field);
+        questionAnswerFrame.add(showNext);
 
-        dialog.setVisible(true);
+        questionAnswerFrame.setVisible(true);
     }
 
-    private JButton getShowNextButton(String use, JDialog dialog) {
+    private JButton getShowNextButton(String use, JFrame frame) {
         JButton showNext = new JButton();
         showNext.setBounds(200, 300, 200, 50);
         if (use.equals("Q")) {
@@ -286,11 +286,11 @@ public class AppWindow {
             showNext.setText("Next Question");
         }
         showNext.setFocusable(false);
-        dialog.getRootPane().setDefaultButton(showNext);
+        frame.getRootPane().setDefaultButton(showNext);
         showNext.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
+                frame.dispose();
                 if (use.equals("Q")) {
                     showQuestionAnswerDialog("A");
                 } else if (use.equals("A")) {
