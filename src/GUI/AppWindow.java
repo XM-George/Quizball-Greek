@@ -38,9 +38,7 @@ public class AppWindow {
 
         main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        if(currentQuestion != -1) {
-            Question.questions.remove(currentQuestion);
-        }
+        Question.removeQuestion(currentQuestion);
         currentQuestion = rng.generateQuestion();
 
         JButton showQ = new JButton();

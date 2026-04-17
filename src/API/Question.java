@@ -20,4 +20,11 @@ public class Question
         this.answer = answer;
         questions.add(this);
     }
+
+    public static void removeQuestion(int currentQuestion)
+    {
+        if(currentQuestion != -1) {
+            Question.questions.remove(currentQuestion);
+        }
+    }
 }
