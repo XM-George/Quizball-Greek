@@ -7,9 +7,16 @@ public class FileRead
     public void readCSV()
     {
         String line;
-        String filename = "src/resources/questions.csv" ;
+        String filename = "resources/questions.csv" ;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filename)))
+        InputStream is = FileRead.class.getClassLoader().getResourceAsStream(filename);
+
+        if (is == null)
+        {
+            throw new IllegalArgumentException("File not found: " + filename);
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(is)))
         {
             while ((line = br.readLine()) != null)
             {
