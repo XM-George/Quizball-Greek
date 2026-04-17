@@ -181,7 +181,10 @@ public class AppWindow {
         addScoreButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                scores[0]++;
+                if (scores[0] + 1 <=100)
+                {
+                    scores[0]++;
+                }
                 updateScores();
             }
         });
@@ -192,8 +195,11 @@ public class AppWindow {
         subtractScoreButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                scores[0]--;
-                updateScores();
+               if(scores[0] - 1 >= 0)
+               {
+                   scores[0]--;
+               }
+               updateScores();
             }
         });
 
@@ -203,7 +209,10 @@ public class AppWindow {
         addScoreButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                scores[1]++;
+                if (scores[1] + 1 <=100)
+                {
+                    scores[1]++;
+                }
                 updateScores();
             }
         });
@@ -214,7 +223,10 @@ public class AppWindow {
         subtractScoreButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                scores[1]--;
+                if(scores[1] - 1 >= 0)
+                {
+                    scores[1]--;
+                }
                 updateScores();
             }
         });
