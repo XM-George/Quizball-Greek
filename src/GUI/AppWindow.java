@@ -102,6 +102,7 @@ public class AppWindow {
         JButton setNamesButton = new JButton("Set names");
         setNamesButton.setFont(f);
         setNamesButton.setFocusable(false);
+        nameDialog.getRootPane().setDefaultButton(setNamesButton);
         setNamesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
