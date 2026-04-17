@@ -25,24 +25,4 @@ public class FileRead
 
 
     }
-
-    static
-    {
-        String filename = "src/resources/questions.csv" ;
-        int lines=0;
-        try(BufferedReader reader = new BufferedReader(new FileReader(filename)))
-        {
-            while (reader.readLine() != null)
-            {
-                lines++;
-            }
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-
-        Question.questionNumber = lines;
-        Question.questions = new Question[lines];
-    }
 }

@@ -38,6 +38,9 @@ public class AppWindow {
 
         main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        if(currentQuestion != -1) {
+            Question.questions.remove(currentQuestion);
+        }
         currentQuestion = rng.generateQuestion();
 
         JButton showQ = new JButton();
@@ -53,6 +56,10 @@ public class AppWindow {
                 showQuestionAnswerDialog("Q");
             }
         });
+        if(Question.questions.isEmpty()) {
+            showQ.setText("No questions to show");
+            showQ.setEnabled(false);
+        }
 
         main.add(showQ);
 
@@ -257,10 +264,10 @@ public class AppWindow {
         field.setFont(f);
 
         if (use.equals("Q")) {
-            field.setText(Question.questions[currentQuestion].question);
+            field.setText(Question.questions.get(currentQuestion).question);
             dialog.setTitle("Question");
         } else if (use.equals("A")) {
-            field.setText(Question.questions[currentQuestion].answer);
+            field.setText(Question.questions.get(currentQuestion).answer);
             dialog.setTitle("Answer");
         }
 

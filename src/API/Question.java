@@ -1,10 +1,10 @@
 package API;
 
+import java.util.ArrayList;
+
 public class Question
 {
-    public static int questionNumber;
-    private static int current = 0;
-    public static Question[] questions;
+    public static ArrayList<Question> questions = new ArrayList<Question>();
 
     public String question;
     public String answer;
@@ -18,7 +18,6 @@ public class Question
     {
         this.question = question;
         this.answer = answer;
-        questions[current] = this;
-        current++;
+        questions.add(this);
     }
 }
