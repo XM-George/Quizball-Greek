@@ -265,7 +265,7 @@ public class AppWindow {
             field.setText(Question.questions.get(currentQuestion).question);
             dialog.setTitle("Question");
         } else if (use.equals("A")) {
-            field.setText(Question.questions.get(currentQuestion).answer);
+            field.setText(Question.questions.get(currentQuestion).question + "\n\n" + Question.questions.get(currentQuestion).answer);
             dialog.setTitle("Answer");
         }
 
