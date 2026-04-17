@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class AppWindow {
     String iconPath = "src/ICONS/football.png";
@@ -18,6 +19,8 @@ public class AppWindow {
     String[] playerNames = {"Player 1", "Player 2"};
     int[] scores = {0,0};
 
+    ImageIcon footballImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/football.png")));
+
     JFrame main;
 
     public void start() {
@@ -27,7 +30,7 @@ public class AppWindow {
         main.setLocationRelativeTo(null);
         main.setResizable(false);
         main.setLayout(null);
-        main.setIconImage(Toolkit.getDefaultToolkit().getImage(iconPath));
+        main.setIconImage(footballImage.getImage());
         main.setTitle("Quizball");
 
         setMenuBar();
@@ -261,7 +264,7 @@ public class AppWindow {
         questionAnswerFrame.setLayout(null);
         questionAnswerFrame.setLocationRelativeTo(null);
         questionAnswerFrame.setResizable(false);
-        questionAnswerFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(iconPath));
+        questionAnswerFrame.setIconImage(footballImage.getImage());
 
         questionAnswerFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
