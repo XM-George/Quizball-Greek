@@ -9,6 +9,8 @@ public class FileRead
         String line;
         String filename = "resources/questions.csv" ;
 
+        String category = new File(filename).getName().replaceFirst("[.][^.]+$", "");
+
         InputStream is = FileRead.class.getClassLoader().getResourceAsStream(filename);
 
         if (is == null)
@@ -22,7 +24,14 @@ public class FileRead
             {
                 //χωρίζονται απο κόμμα
                 String[] values = line.split(",");
-                new Question(values[0], values[1]);
+                try
+                {
+                    new Question(values[0], values[1], Integer.parseInt(values[2]), category);
+                }
+                catch (NumberFormatException e)
+                {
+                    new Question(values[0], values[1], category);
+                }
             }
         }
         catch (IOException e)

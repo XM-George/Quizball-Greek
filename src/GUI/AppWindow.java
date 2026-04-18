@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class AppWindow {
-    String iconPath = "src/ICONS/football.png";
 
     Font f = new Font(null, Font.PLAIN, 20);
     RngQuestionGenerator rng = new RngQuestionGenerator();
@@ -57,7 +56,7 @@ public class AppWindow {
                 showQuestionAnswerDialog("Q");
             }
         });
-        if(Question.questions.isEmpty()) {
+        if(Question.checkIfEmpty()) {
             showQ.setText("No questions to show");
             showQ.setEnabled(false);
         }
