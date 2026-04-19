@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLOutput;
 import java.util.Objects;
 
 public class AppWindow {
@@ -87,10 +88,62 @@ public class AppWindow {
         main.setJMenuBar(menuBar);
     }
 
+    public void categorySelect()
+    {
+        JDialog categoryDialog = new JDialog();
+        categoryDialog.setSize(800, 500);
+        categoryDialog.setTitle("Choose categories");
+        ImageIcon questionImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/questions.png")));
+        categoryDialog.setIconImage(questionImage.getImage());
+        categoryDialog.setLocationRelativeTo(null);
+        categoryDialog.setResizable(false);
+        categoryDialog.setModal(true);
+        categoryDialog.setLayout(null);
+
+        int width = 20;
+        int height = 20;
+        int categorySum = 0;
+
+        for (String c : Question.categoryNames)
+        {
+            ImageIcon rawCategoryIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/" + c + ".png")));
+            Image categoryImage = rawCategoryIcon.getImage().getScaledInstance(42, 42, Image.SCALE_SMOOTH);
+
+            JLabel label = new JLabel(c.toUpperCase());
+            label.setBounds(width, height, 250,30);
+            label.setFont(f);
+
+            JButton button = new JButton();
+            button.setIcon(new ImageIcon(categoryImage));
+            button.setBounds(width, height + 30, 100, 50);
+            button.setFocusable(false);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                }
+            });
+
+            width += 250;
+            categorySum += 1;
+            if(categorySum % 3 == 0)
+            {
+                width = 20;
+                height += 90;
+            }
+
+            categoryDialog.add(label);
+            categoryDialog.add(button);
+        }
+
+        categoryDialog.setVisible(true);
+    }
+
     public void getNames()
     {
         JDialog nameDialog = new JDialog();
         nameDialog.setSize(800, 300);
+        nameDialog.setTitle("Set names");
         nameDialog.setLocationRelativeTo(null);
         nameDialog.setResizable(false);
         nameDialog.setModal(true);
