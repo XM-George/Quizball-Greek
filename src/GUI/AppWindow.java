@@ -6,8 +6,6 @@ import API.RngQuestionGenerator;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
@@ -56,18 +54,15 @@ public class AppWindow {
         }
         showQ.setFocusable(false);
         main.getRootPane().setDefaultButton(showQ);
-        showQ.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.dispose();
-                if(QuizLogic.categories.isEmpty()) {
-                    categorySelect();
-                    start();
-                }
-                else
-                {
-                    showQuestionAnswerDialog("Q");
-                }
+        showQ.addActionListener(_ -> {
+            main.dispose();
+            if(QuizLogic.categories.isEmpty()) {
+                categorySelect();
+                start();
+            }
+            else
+            {
+                showQuestionAnswerDialog("Q");
             }
         });
 
@@ -86,13 +81,10 @@ public class AppWindow {
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Set names");
         JMenuItem setNames = new JMenuItem("Set names");
-        setNames.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getNames();
-                main.dispose();
-                start();
-            }
+        setNames.addActionListener(_ -> {
+            getNames();
+            main.dispose();
+            start();
         });
 
         menu.add(setNames);
@@ -135,13 +127,10 @@ public class AppWindow {
             button.setBounds(width, height + 30, 100, 50);
             button.setFocusable(false);
             buttons[categorySum] = button;
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String category = new File(rawCategoryIcon.getDescription()).getName().replaceFirst("[.][^.]+$", "");
-                    QuizLogic.categories.add(category);
-                    button.setEnabled(false);
-                }
+            button.addActionListener(_ -> {
+                String category = new File(rawCategoryIcon.getDescription()).getName().replaceFirst("[.][^.]+$", "");
+                QuizLogic.categories.add(category);
+                button.setEnabled(false);
             });
 
             width += 250;
@@ -160,25 +149,17 @@ public class AppWindow {
         confirmButton.setBounds(100, 420, 200, 50);
         confirmButton.setFocusable(false);
         confirmButton.setFont(f);
-        confirmButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                categoryDialog.dispose();
-            }
-        });
+        confirmButton.addActionListener(_ -> categoryDialog.dispose());
 
         JButton resetButton = new JButton("Reset");
         resetButton.setBounds(500, 420, 200, 50);
         resetButton.setFocusable(false);
         resetButton.setFont(f);
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                QuizLogic.categories.clear();
-                for (JButton b : buttons)
-                {
-                    b.setEnabled(true);
-                }
+        resetButton.addActionListener(_ -> {
+            QuizLogic.categories.clear();
+            for (JButton b : buttons)
+            {
+                b.setEnabled(true);
             }
         });
 
@@ -216,24 +197,16 @@ public class AppWindow {
         setNamesButton.setFont(f);
         setNamesButton.setFocusable(false);
         nameDialog.getRootPane().setDefaultButton(setNamesButton);
-        setNamesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                QuizLogic.playerNames[0] = nameField1.getText();
-                QuizLogic.playerNames[1] = nameField2.getText();
-                nameDialog.dispose();
-            }
+        setNamesButton.addActionListener(_ -> {
+            QuizLogic.playerNames[0] = nameField1.getText();
+            QuizLogic.playerNames[1] = nameField2.getText();
+            nameDialog.dispose();
         });
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setFont(f);
         cancelButton.setFocusable(false);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                nameDialog.dispose();
-            }
-        });
+        cancelButton.addActionListener(_ -> nameDialog.dispose());
 
         nameLabel1.setBounds(50, 20, 325, 30);
         nameLabel2.setBounds(425, 20, 325, 30);
@@ -286,57 +259,45 @@ public class AppWindow {
         JButton addScoreButton1 = new JButton("+1");
         addScoreButton1.setFont(f);
         addScoreButton1.setFocusable(false);
-        addScoreButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (QuizLogic.scores[0] + 1 <=100)
-                {
-                    QuizLogic.scores[0]++;
-                }
-                updateScores();
+        addScoreButton1.addActionListener(_ -> {
+            if (QuizLogic.scores[0] + 1 <=100)
+            {
+                QuizLogic.scores[0]++;
             }
+            updateScores();
         });
 
         JButton subtractScoreButton1 = new JButton("-1");
         subtractScoreButton1.setFont(f);
         subtractScoreButton1.setFocusable(false);
-        subtractScoreButton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               if(QuizLogic.scores[0] - 1 >= 0)
-               {
-                   QuizLogic.scores[0]--;
-               }
-               updateScores();
-            }
+        subtractScoreButton1.addActionListener(_ -> {
+           if(QuizLogic.scores[0] - 1 >= 0)
+           {
+               QuizLogic.scores[0]--;
+           }
+           updateScores();
         });
 
         JButton addScoreButton2 = new JButton("+1");
         addScoreButton2.setFont(f);
         addScoreButton2.setFocusable(false);
-        addScoreButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (QuizLogic.scores[1] + 1 <=100)
-                {
-                    QuizLogic.scores[1]++;
-                }
-                updateScores();
+        addScoreButton2.addActionListener(_ -> {
+            if (QuizLogic.scores[1] + 1 <=100)
+            {
+                QuizLogic.scores[1]++;
             }
+            updateScores();
         });
 
         JButton subtractScoreButton2 = new JButton("-1");
         subtractScoreButton2.setFont(f);
         subtractScoreButton2.setFocusable(false);
-        subtractScoreButton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(QuizLogic.scores[1] - 1 >= 0)
-                {
-                    QuizLogic.scores[1]--;
-                }
-                updateScores();
+        subtractScoreButton2.addActionListener(_ -> {
+            if(QuizLogic.scores[1] - 1 >= 0)
+            {
+                QuizLogic.scores[1]--;
             }
+            updateScores();
         });
 
         scoreLabel1.setBounds(50, 60, 300, 30);
@@ -407,15 +368,12 @@ public class AppWindow {
         }
         showNext.setFocusable(false);
         frame.getRootPane().setDefaultButton(showNext);
-        showNext.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                if (use.equals("Q")) {
-                    showQuestionAnswerDialog("A");
-                } else if (use.equals("A")) {
-                    start();
-                }
+        showNext.addActionListener(_ -> {
+            frame.dispose();
+            if (use.equals("Q")) {
+                showQuestionAnswerDialog("A");
+            } else if (use.equals("A")) {
+                start();
             }
         });
         return showNext;
