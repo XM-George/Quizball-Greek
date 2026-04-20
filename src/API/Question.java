@@ -6,8 +6,6 @@ import java.util.Map;
 
 public class Question
 {
-    public static ArrayList<Question> questions = new ArrayList<>();
-
     public static String[] categoryNames = {"questions" , "geography" , "gossip" , "hiddenQuestion" , "history" , "top5"};
     public static Map<String, ArrayList<Question>[]> categories = new HashMap<>();
 
@@ -34,7 +32,6 @@ public class Question
         this.answer = answer;
         this.points = 0;
         categories.get(category)[points].add(this);
-        questions.add(this);
     }
 
     public Question(String question, String answer, int points, String category)
@@ -43,38 +40,17 @@ public class Question
         this.answer = answer;
         this.points = points;
         categories.get(category)[points-1].add(this);
-        questions.add(this);
     }
 
-    public static void getQuestion()
+    public static void getAndThenRemoveQuestion()
     {
-        int random = (int) (Math.random() * categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints].size());
-        QuizLogic.curQuestion = categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints].get(random);
-    }
-
-    public static void removeQuestion(int currentQuestion)
-    {
-        if(currentQuestion != -1) {
-            Question.questions.remove(currentQuestion);
-        }
+        int random = (int) (Math.random() * categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints - 1].size());
+        QuizLogic.currentQuestion = categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints - 1].get(random);
+        categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints - 1].remove(QuizLogic.currentQuestion);
     }
 
     public static boolean checkIfEmpty()
     {
-        if(questions.isEmpty())
-        {
-            return true;
-        }
-        for(String key : categories.keySet())
-        {
-            for(int i = 0; i < categories.get(key).length;i++)
-            {
-                if(!categories.get(key)[i].isEmpty())
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return false;
     }
 }

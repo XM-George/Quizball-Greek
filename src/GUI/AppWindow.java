@@ -2,7 +2,6 @@ package GUI;
 
 import API.Question;
 import API.QuizLogic;
-import API.RngQuestionGenerator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +9,9 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static API.QuizLogic.currentQuestion;
-
 public class AppWindow {
 
     Font f = new Font(null, Font.PLAIN, 20);
-    RngQuestionGenerator rng = new RngQuestionGenerator();
 
     ImageIcon footballImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/football.png")));
 
@@ -39,9 +35,6 @@ public class AppWindow {
 
         main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Question.removeQuestion(currentQuestion);
-        currentQuestion = rng.generateQuestion();
-
         JButton showQ = new JButton();
         showQ.setBounds(300, 650, 200, 50);
         showQ.setSize(200, 50);
@@ -50,7 +43,7 @@ public class AppWindow {
         }
         else
         {
-            showQ.setText("Show question");
+            showQ.setText("Select question");
         }
         showQ.setFocusable(false);
         main.getRootPane().setDefaultButton(showQ);
@@ -62,6 +55,7 @@ public class AppWindow {
             }
             else
             {
+                questionSelect();
                 showQuestionAnswerDialog("Q");
             }
         });
@@ -229,6 +223,8 @@ public class AppWindow {
         }
 
         questionDialog.setVisible(true);
+
+        Question.getAndThenRemoveQuestion();
     }
 
     public void getNames()
@@ -401,10 +397,10 @@ public class AppWindow {
         field.setFont(f);
 
         if (use.equals("Q")) {
-            field.setText(Question.questions.get(currentQuestion).question);
+            field.setText(QuizLogic.currentQuestion.question);
             questionAnswerFrame.setTitle("Question");
         } else if (use.equals("A")) {
-            field.setText(Question.questions.get(currentQuestion).question + "\n\n" + Question.questions.get(currentQuestion).answer);
+            field.setText(QuizLogic.currentQuestion.question + "\n\n" + QuizLogic.currentQuestion.answer);
             questionAnswerFrame.setTitle("Answer");
         }
 
