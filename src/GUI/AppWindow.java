@@ -7,7 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLOutput;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class AppWindow {
@@ -88,10 +90,11 @@ public class AppWindow {
         main.setJMenuBar(menuBar);
     }
 
-    public void categorySelect()
+    public ArrayList<String> categorySelect()
     {
         JDialog categoryDialog = new JDialog();
-        categoryDialog.setSize(800, 500);
+        categoryDialog.getContentPane().setPreferredSize(new Dimension(800, 500));
+        categoryDialog.pack();
         categoryDialog.setTitle("Choose categories");
         ImageIcon questionImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/questions.png")));
         categoryDialog.setIconImage(questionImage.getImage());
@@ -103,6 +106,9 @@ public class AppWindow {
         int width = 20;
         int height = 20;
         int categorySum = 0;
+
+        ArrayList<String> categories = new ArrayList<>();
+        JButton[] buttons = new JButton[Question.categories.size()];
 
         for (String c : Question.categoryNames)
         {
@@ -117,10 +123,13 @@ public class AppWindow {
             button.setIcon(new ImageIcon(categoryImage));
             button.setBounds(width, height + 30, 100, 50);
             button.setFocusable(false);
+            buttons[categorySum] = button;
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    String category = new File(rawCategoryIcon.getDescription()).getName().replaceFirst("[.][^.]+$", "");
+                    categories.add(category);
+                    button.setEnabled(false);
                 }
             });
 
@@ -136,7 +145,42 @@ public class AppWindow {
             categoryDialog.add(button);
         }
 
+        JButton confirmButton = new JButton("Confirm");
+        confirmButton.setBounds(100, 420, 200, 50);
+        confirmButton.setFocusable(false);
+        confirmButton.setFont(f);
+        confirmButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                categoryDialog.dispose();
+            }
+        });
+
+        JButton resetButton = new JButton("Reset");
+        resetButton.setBounds(500, 420, 200, 50);
+        resetButton.setFocusable(false);
+        resetButton.setFont(f);
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                categories.clear();
+                for (JButton b : buttons)
+                {
+                    b.setEnabled(true);
+                }
+            }
+        });
+
+        categoryDialog.add(confirmButton);
+        categoryDialog.add(resetButton);
+
         categoryDialog.setVisible(true);
+
+        if (categories.isEmpty()) {
+            categories.addAll(Arrays.asList(Question.categoryNames));
+        }
+
+        return categories;
     }
 
     public void getNames()
