@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Question
 {
-    public static String[] categoryNames = {"questions" , "geography" , "gossip" , "hiddenQuestion" , "history" , "top5"};
+    public static String[] categoryNames = {"geography" , "gossip" , "hiddenQuestion" , "history" , "top5"};
     public static Map<String, ArrayList<Question>[]> categories = new HashMap<>();
 
     public String question;

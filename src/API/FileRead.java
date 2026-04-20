@@ -7,7 +7,7 @@ public class FileRead
     public void readCSV()
     {
         String line;
-        String[] pathNames = {"resources/questions.csv" , "questions/geography.csv" , "questions/gossip.csv" , "questions/hiddenQuestion.csv" , "questions/history.csv" , "questions/top5.csv"} ;
+        String[] pathNames = {"questions/geography.csv" , "questions/gossip.csv" , "questions/hiddenQuestion.csv" , "questions/history.csv" , "questions/top5.csv"} ;
 
         for(String filename : pathNames)
         {
