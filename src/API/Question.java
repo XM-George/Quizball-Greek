@@ -51,6 +51,19 @@ public class Question
 
     public static boolean checkIfEmpty()
     {
-        return false;
+        if(QuizLogic.categories.isEmpty())
+        {
+            return false;
+        }
+        for(String c : QuizLogic.categories) {
+            for (int i = 0; i < 3; i++)
+            {
+                if(!categories.get(c)[i].isEmpty())
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
