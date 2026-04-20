@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class QuizLogic
 {
-    public static Question question;
+    public static Question curQuestion;
 
     public static String questionCategory;
     public static int questionPoints;

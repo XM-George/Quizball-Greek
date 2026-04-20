@@ -46,9 +46,10 @@ public class Question
         questions.add(this);
     }
 
-    public static Question getQuestion(String category)
+    public static void getQuestion()
     {
-        return null;
+        int random = (int) (Math.random() * categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints].size());
+        QuizLogic.curQuestion = categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints].get(random);
     }
 
     public static void removeQuestion(int currentQuestion)
