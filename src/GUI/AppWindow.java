@@ -65,10 +65,12 @@ public class AppWindow {
             showQ.setEnabled(false);
         }
 
-        if(QuizLogic.checkIfAllQuestionsArePressed())
-        {
-            showQ.setText("Game finished");
-            showQ.setEnabled(false);
+        if(!QuizLogic.categories.isEmpty()) {
+            if(QuizLogic.checkIfAllQuestionsArePressed())
+            {
+                showQ.setText("Game finished");
+                showQ.setEnabled(false);
+            }
         }
 
         main.add(showQ);
