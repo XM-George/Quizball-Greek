@@ -173,6 +173,64 @@ public class AppWindow {
         }
     }
 
+    public void questionSelect()
+    {
+        JDialog questionDialog = new JDialog();
+        questionDialog.getContentPane().setPreferredSize(new Dimension(400, 100 * (QuizLogic.categories.size() + 1) ));
+        questionDialog.pack();
+        questionDialog.setTitle("Choose question");
+        ImageIcon questionImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/questions.png")));
+        questionDialog.setIconImage(questionImage.getImage());
+        questionDialog.setLocationRelativeTo(null);
+        questionDialog.setResizable(false);
+        questionDialog.setModal(true);
+        questionDialog.setLayout(null);
+
+        int width = 30;
+        int height = 20;
+
+        for (String c : QuizLogic.categories)
+        {
+            JLabel label = new JLabel(c.toUpperCase());
+            label.setBounds(width, height, 340,30);
+            label.setFont(f);
+
+            height += 40;
+
+            for(int i=0;i<3;i++)
+            {
+                JButton button = new JButton();
+                button.setText("x" + (i+1));
+                button.setBounds(width, height, 100, 50);
+                button.setFocusable(false);
+                button.setFont(f);
+                button.addActionListener(_ -> {
+                    QuizLogic.questionCategory = c;
+                    try
+                    {
+                        QuizLogic.questionPoints = Integer.parseInt(button.getText().replace("x",""));
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        QuizLogic.questionPoints = 0;
+                    }
+                    questionDialog.dispose();
+                });
+
+                width+=120;
+
+                questionDialog.add(button);
+            }
+
+            width = 30;
+            height += 60;
+
+            questionDialog.add(label);
+        }
+
+        questionDialog.setVisible(true);
+    }
+
     public void getNames()
     {
         JDialog nameDialog = new JDialog();
