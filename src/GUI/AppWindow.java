@@ -65,6 +65,12 @@ public class AppWindow {
             showQ.setEnabled(false);
         }
 
+        if(QuizLogic.checkIfAllQuestionsArePressed())
+        {
+            showQ.setText("Game finished");
+            showQ.setEnabled(false);
+        }
+
         main.add(showQ);
 
         main.setVisible(true);

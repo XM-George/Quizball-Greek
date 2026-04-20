@@ -27,4 +27,16 @@ public class QuizLogic
             }
         }
     }
+
+    public static boolean checkIfAllQuestionsArePressed()
+    {
+        for (int[] selectedQuestion : selectedQuestions) {
+            for (int i : selectedQuestion) {
+                if (i == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
