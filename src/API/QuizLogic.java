@@ -13,4 +13,18 @@ public class QuizLogic
     public static Question currentQuestion;
 
     public static ArrayList<String> categories = new ArrayList<>();
+
+    public static int[][] selectedQuestions;
+
+    public static void initializeSelectedQuestionsArray()
+    {
+        selectedQuestions = new int[categories.size()][3];
+        for(int i = 0; i < categories.size(); i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                selectedQuestions[i][j] = 0;
+            }
+        }
+    }
 }

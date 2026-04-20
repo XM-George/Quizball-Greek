@@ -165,6 +165,8 @@ public class AppWindow {
         if (QuizLogic.categories.isEmpty()) {
             QuizLogic.categories.addAll(Arrays.asList(Question.categoryNames));
         }
+
+        QuizLogic.initializeSelectedQuestionsArray();
     }
 
     public void questionSelect()
@@ -180,6 +182,8 @@ public class AppWindow {
         questionDialog.setResizable(false);
         questionDialog.setModal(true);
         questionDialog.setLayout(null);
+
+        int categoryNumber = 0;
 
         int width = 30;
         int height = 20;
@@ -210,6 +214,12 @@ public class AppWindow {
                 button.setBounds(width, height, 100, 50);
                 button.setFocusable(false);
                 button.setFont(f);
+                if(QuizLogic.selectedQuestions[categoryNumber][i] == 1)
+                {
+                    button.setEnabled(false);
+                }
+                int finalI = i;
+                int finalCategoryNumber = categoryNumber;
                 button.addActionListener(_ -> {
                     QuizLogic.questionCategory = c;
                     try
@@ -220,6 +230,7 @@ public class AppWindow {
                     {
                         QuizLogic.questionPoints = 0;
                     }
+                    QuizLogic.selectedQuestions[finalCategoryNumber][finalI] = 1;
                     questionDialog.dispose();
                 });
 
@@ -230,6 +241,8 @@ public class AppWindow {
 
             width = 30;
             height += 60;
+
+            categoryNumber ++;
 
             questionDialog.add(label);
         }
