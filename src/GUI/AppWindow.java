@@ -175,6 +175,7 @@ public class AppWindow {
         questionDialog.setTitle("Choose question");
         ImageIcon questionImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/questions.png")));
         questionDialog.setIconImage(questionImage.getImage());
+        questionDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         questionDialog.setLocationRelativeTo(null);
         questionDialog.setResizable(false);
         questionDialog.setModal(true);
@@ -194,7 +195,18 @@ public class AppWindow {
             for(int i=0;i<3;i++)
             {
                 JButton button = new JButton();
-                button.setText("x" + (i+1));
+                if("hiddenQuestion".equals(c))
+                {
+                    button.setText("x2");
+                }
+                else if ("top5".equals(c))
+                {
+                    button.setText("x3");
+                }
+                else
+                {
+                    button.setText("x" + (i+1));
+                }
                 button.setBounds(width, height, 100, 50);
                 button.setFocusable(false);
                 button.setFont(f);

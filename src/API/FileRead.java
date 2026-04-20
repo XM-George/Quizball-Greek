@@ -7,38 +7,39 @@ public class FileRead
     public void readCSV()
     {
         String line;
-        String filename = "resources/questions.csv" ;
+        String[] pathNames = {"resources/questions.csv" , "questions/geography.csv" , "questions/gossip.csv" , "questions/hiddenQuestion.csv" , "questions/history.csv" , "questions/top5.csv"} ;
 
-        String category = new File(filename).getName().replaceFirst("[.][^.]+$", "");
-
-        InputStream is = FileRead.class.getClassLoader().getResourceAsStream(filename);
-
-        if (is == null)
+        for(String filename : pathNames)
         {
-            throw new IllegalArgumentException("File not found: " + filename);
-        }
+            String category = new File(filename).getName().replaceFirst("[.][^.]+$", "");
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is)))
-        {
-            while ((line = br.readLine()) != null)
+            InputStream is = FileRead.class.getClassLoader().getResourceAsStream(filename);
+
+            if (is == null)
             {
-                //χωρίζονται απο κόμμα
-                String[] values = line.split(",");
-                try
+                throw new IllegalArgumentException("File not found: " + filename);
+            }
+
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(is)))
+            {
+                while ((line = br.readLine()) != null)
                 {
-                    new Question(values[0], values[1], Integer.parseInt(values[2]), category);
-                }
-                catch (NumberFormatException e)
-                {
-                    new Question(values[0], values[1], category);
+                    //χωρίζονται απο κόμμα
+                    String[] values = line.split(",");
+                    try
+                    {
+                        new Question(values[0], values[1], Integer.parseInt(values[2]), category);
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        new Question(values[0], values[1], category);
+                    }
                 }
             }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-
-
     }
 }
