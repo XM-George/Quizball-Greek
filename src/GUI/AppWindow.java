@@ -1,6 +1,7 @@
 package GUI;
 
 import API.Question;
+import API.QuizLogic;
 import API.RngQuestionGenerator;
 
 import javax.swing.*;
@@ -12,14 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+import static API.QuizLogic.currentQuestion;
+
 public class AppWindow {
 
     Font f = new Font(null, Font.PLAIN, 20);
     RngQuestionGenerator rng = new RngQuestionGenerator();
-    int currentQuestion = -1;
-
-    String[] playerNames = {"Player 1", "Player 2"};
-    int[] scores = {0,0};
 
     ImageIcon footballImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/ICONS/football.png")));
 
@@ -210,8 +209,8 @@ public class AppWindow {
         setNamesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playerNames[0] = nameField1.getText();
-                playerNames[1] = nameField2.getText();
+                QuizLogic.playerNames[0] = nameField1.getText();
+                QuizLogic.playerNames[1] = nameField2.getText();
                 nameDialog.dispose();
             }
         });
@@ -247,13 +246,13 @@ public class AppWindow {
 
     public void setNamesToFrame()
     {
-        if(playerNames == null)
+        if(QuizLogic.playerNames == null)
         {
             return;
         }
-        JLabel nameLabel1 = new JLabel(playerNames[0]);
+        JLabel nameLabel1 = new JLabel(QuizLogic.playerNames[0]);
         nameLabel1.setFont(f);
-        JLabel nameLabel2 = new JLabel(playerNames[1]);
+        JLabel nameLabel2 = new JLabel(QuizLogic.playerNames[1]);
         nameLabel2.setFont(f);
 
         nameLabel1.setBounds(50, 20, 300, 30);
@@ -268,10 +267,10 @@ public class AppWindow {
     JLabel scoreLabel2;
     public void setScoreForPlayers()
     {
-        scoreLabel1 = new JLabel("Score: " + scores[0]);
+        scoreLabel1 = new JLabel("Score: " + QuizLogic.scores[0]);
         scoreLabel1.setFont(f);
 
-        scoreLabel2 = new JLabel("Score: " + scores[1]);
+        scoreLabel2 = new JLabel("Score: " + QuizLogic.scores[1]);
         scoreLabel2.setFont(f);
 
         JButton addScoreButton1 = new JButton("+1");
@@ -280,9 +279,9 @@ public class AppWindow {
         addScoreButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (scores[0] + 1 <=100)
+                if (QuizLogic.scores[0] + 1 <=100)
                 {
-                    scores[0]++;
+                    QuizLogic.scores[0]++;
                 }
                 updateScores();
             }
@@ -294,9 +293,9 @@ public class AppWindow {
         subtractScoreButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               if(scores[0] - 1 >= 0)
+               if(QuizLogic.scores[0] - 1 >= 0)
                {
-                   scores[0]--;
+                   QuizLogic.scores[0]--;
                }
                updateScores();
             }
@@ -308,9 +307,9 @@ public class AppWindow {
         addScoreButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (scores[1] + 1 <=100)
+                if (QuizLogic.scores[1] + 1 <=100)
                 {
-                    scores[1]++;
+                    QuizLogic.scores[1]++;
                 }
                 updateScores();
             }
@@ -322,9 +321,9 @@ public class AppWindow {
         subtractScoreButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(scores[1] - 1 >= 0)
+                if(QuizLogic.scores[1] - 1 >= 0)
                 {
-                    scores[1]--;
+                    QuizLogic.scores[1]--;
                 }
                 updateScores();
             }
@@ -348,8 +347,8 @@ public class AppWindow {
     }
 
     public void updateScores() {
-        scoreLabel1.setText("Score: " + scores[0]);
-        scoreLabel2.setText("Score: " + scores[1]);
+        scoreLabel1.setText("Score: " + QuizLogic.scores[0]);
+        scoreLabel2.setText("Score: " + QuizLogic.scores[1]);
 
         main.repaint();
     }
