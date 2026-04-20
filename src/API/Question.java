@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+@SuppressWarnings("unchecked")
 public class Question
 {
     public static String[] categoryNames = {"geography" , "gossip" , "hiddenQuestion" , "history" , "top5"};
@@ -17,7 +19,7 @@ public class Question
     {
         for (String category : categoryNames)
         {
-            categories.put(category , new ArrayList[]{new ArrayList<>(), new ArrayList<>(), new ArrayList<>()});
+            categories.put(category , new ArrayList[]{new ArrayList<Question>(), new ArrayList<Question>(), new ArrayList<Question>()});
         }
     }
 
