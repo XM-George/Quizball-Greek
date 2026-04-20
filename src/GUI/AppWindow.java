@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -48,16 +47,30 @@ public class AppWindow {
         JButton showQ = new JButton();
         showQ.setBounds(300, 650, 200, 50);
         showQ.setSize(200, 50);
-        showQ.setText("Show question");
+        if(QuizLogic.categories.isEmpty()) {
+            showQ.setText("Select categories");
+        }
+        else
+        {
+            showQ.setText("Show question");
+        }
         showQ.setFocusable(false);
         main.getRootPane().setDefaultButton(showQ);
         showQ.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.dispose();
-                showQuestionAnswerDialog("Q");
+                if(QuizLogic.categories.isEmpty()) {
+                    categorySelect();
+                    start();
+                }
+                else
+                {
+                    showQuestionAnswerDialog("Q");
+                }
             }
         });
+
         if(Question.checkIfEmpty()) {
             showQ.setText("No questions to show");
             showQ.setEnabled(false);
@@ -89,7 +102,7 @@ public class AppWindow {
         main.setJMenuBar(menuBar);
     }
 
-    public ArrayList<String> categorySelect()
+    public void categorySelect()
     {
         JDialog categoryDialog = new JDialog();
         categoryDialog.getContentPane().setPreferredSize(new Dimension(800, 500));
@@ -106,7 +119,6 @@ public class AppWindow {
         int height = 20;
         int categorySum = 0;
 
-        ArrayList<String> categories = new ArrayList<>();
         JButton[] buttons = new JButton[Question.categories.size()];
 
         for (String c : Question.categoryNames)
@@ -127,7 +139,7 @@ public class AppWindow {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String category = new File(rawCategoryIcon.getDescription()).getName().replaceFirst("[.][^.]+$", "");
-                    categories.add(category);
+                    QuizLogic.categories.add(category);
                     button.setEnabled(false);
                 }
             });
@@ -162,7 +174,7 @@ public class AppWindow {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                categories.clear();
+                QuizLogic.categories.clear();
                 for (JButton b : buttons)
                 {
                     b.setEnabled(true);
@@ -175,11 +187,9 @@ public class AppWindow {
 
         categoryDialog.setVisible(true);
 
-        if (categories.isEmpty()) {
-            categories.addAll(Arrays.asList(Question.categoryNames));
+        if (QuizLogic.categories.isEmpty()) {
+            QuizLogic.categories.addAll(Arrays.asList(Question.categoryNames));
         }
-
-        return categories;
     }
 
     public void getNames()
