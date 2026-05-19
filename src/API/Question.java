@@ -48,7 +48,7 @@ public class Question
     {
         int random = (int) (Math.random() * categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints - 1].size());
         QuizLogic.currentQuestion = categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints - 1].get(random);
-        categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints - 1].remove(QuizLogic.currentQuestion);
+        categories.get(QuizLogic.questionCategory)[QuizLogic.questionPoints - 1].remove(random);
     }
 
     public static boolean checkIfEmpty()
