@@ -28,11 +28,14 @@ public class FileRead
                     String[] values = line.split(",");
                     try
                     {
-                        new Question(values[0], values[1], Integer.parseInt(values[2]), category);
+                        new Question(values[0],
+                                     values[1].replace("\\n","\n"),
+                                     Integer.parseInt(values[2]),
+                                     category);
                     }
                     catch (NumberFormatException e)
                     {
-                        new Question(values[0], values[1], category);
+                        new Question(values[0], values[1].replace("\\n","\n"), category);
                     }
                 }
             }

@@ -285,8 +285,14 @@ public class AppWindow {
         setNamesButton.setFocusable(false);
         nameDialog.getRootPane().setDefaultButton(setNamesButton);
         setNamesButton.addActionListener(_ -> {
-            QuizLogic.playerNames[0] = nameField1.getText();
-            QuizLogic.playerNames[1] = nameField2.getText();
+            if(!nameField1.getText().isEmpty())
+            {
+                QuizLogic.playerNames[0] = nameField1.getText();
+            }
+            if(!nameField2.getText().isEmpty())
+            {
+                QuizLogic.playerNames[1] = nameField2.getText();
+            }
             nameDialog.dispose();
         });
 
@@ -320,8 +326,10 @@ public class AppWindow {
         {
             return;
         }
+
         JLabel nameLabel1 = new JLabel(QuizLogic.playerNames[0]);
         nameLabel1.setFont(f);
+
         JLabel nameLabel2 = new JLabel(QuizLogic.playerNames[1]);
         nameLabel2.setFont(f);
 
@@ -413,7 +421,7 @@ public class AppWindow {
 
     public void showQuestionAnswerDialog(String use) {
         JFrame questionAnswerFrame = new JFrame();
-        questionAnswerFrame.setSize(600, 400);
+        questionAnswerFrame.setSize(600, 500);
         questionAnswerFrame.setLayout(null);
         questionAnswerFrame.setLocationRelativeTo(null);
         questionAnswerFrame.setResizable(false);
@@ -422,7 +430,7 @@ public class AppWindow {
         questionAnswerFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JTextArea field = new JTextArea();
-        field.setBounds(50, 50, 500, 200);
+        field.setBounds(50, 50, 500, 300);
         field.setEditable(false);
         field.setFocusable(false);
         field.setLineWrap(true);
@@ -447,7 +455,7 @@ public class AppWindow {
 
     private JButton getShowNextButton(String use, JFrame frame) {
         JButton showNext = new JButton();
-        showNext.setBounds(200, 300, 200, 50);
+        showNext.setBounds(200, 380, 200, 50);
         if (use.equals("Q")) {
             showNext.setText("Show Answer");
         } else if (use.equals("A")) {
