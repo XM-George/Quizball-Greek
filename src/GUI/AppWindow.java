@@ -89,6 +89,7 @@ public class AppWindow {
         restart.setBounds(300, 650, 200, 50);
         restart.setSize(200, 50);
         restart.setFocusable(false);
+        main.getRootPane().setDefaultButton(restart);
 
         restart.addActionListener(_ -> {
             QuizLogic.restartQuiz();
@@ -175,6 +176,7 @@ public class AppWindow {
         confirmButton.setFocusable(false);
         confirmButton.setFont(f);
         confirmButton.addActionListener(_ -> categoryDialog.dispose());
+        categoryDialog.getRootPane().setDefaultButton(confirmButton);
 
         JButton resetButton = new JButton("Reset");
         resetButton.setBounds(500, 420, 200, 50);

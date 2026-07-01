@@ -44,5 +44,10 @@ public class QuizLogic
     {
         scores = new int[]{0,0};
         QuizLogic.categories.clear();
+
+        selectedQuestions = null;
+        questionCategory = null;
+        questionPoints = 0;
+        currentQuestion = null;
     }
 }
